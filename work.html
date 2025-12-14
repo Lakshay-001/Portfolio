@@ -1,57 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Work | Lakshay</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Work | Legendarium</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
 <nav class="nav">
   <div class="nav-left">
-    <a href="index.html" class="logo">Lakshay</a>
+    <a href="index.html" class="logo">Legendarium</a>
     <span class="role">Video Editor</span>
   </div>
-
   <div class="nav-right">
-    <a href="work.html">Work</a>
+    <a href="work.html" class="active">Work</a>
     <a href="contact.html" class="nav-btn">Contact</a>
   </div>
 </nav>
 
-
 <section class="section">
   <h2>Selected Work</h2>
 
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="reels">Reels</button>
+    <button class="filter-btn" data-filter="hype">Hype</button>
+    <button class="filter-btn" data-filter="events">Events</button>
+    <button class="filter-btn" data-filter="motion">Motion</button>
+  </div>
+
+  <!-- WORK GRID -->
   <div class="grid">
-    <div class="card">
-      <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
-      <h3>College Fest Reel</h3>
-      <p>Fast-paced Instagram hype edit.</p>
+    <div class="card reveal" data-category="reels,motion">
+     <iframe
+    src="https://drive.google.com/file/d/1PbSCv4zSKKE27cFUhEFq3Z8QT9DhOVHx/preview"
+    allow="autoplay"
+    allowfullscreen>
+  </iframe>
+      <h3>Instagram Reel Edit</h3>
+      <p>Fast-paced reel built for retention and flow.</p>
     </div>
 
-    <div class="card">
+    <div class="card reveal" data-category="hype">
       <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
-      <h3>Event Aftermovie</h3>
-      <p>Cinematic edit focused on moments.</p>
+      <h3>Event Hype Video</h3>
+      <p>High-energy edit designed to build excitement.</p>
     </div>
 
-    <div class="card">
+    <div class="card reveal" data-category="events">
       <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
-      <h3>YouTube Video</h3>
-      <p>Smooth pacing & clean storytelling.</p>
+      <h3>College Fest Aftermovie</h3>
+      <p>Story-driven recap with smooth transitions.</p>
+    </div>
+
+    <div class="card reveal" data-category="motion">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
+      <h3>Motion Cut Edit</h3>
+      <p>Beat-synced cuts with controlled motion.</p>
     </div>
   </div>
 </section>
 
 <footer>
-Legendarium — Video Editor
+     <div class="footer-inner">
+Legendarium — Video Editor</div>
 </footer>
 <script src="script.js"></script>
 
