@@ -1,54 +1,79 @@
-// Page load animation
 window.addEventListener("load", () => {
   document.body.classList.add("loaded");
 });
 
-// Scroll reveal
-const revealEls = document.querySelectorAll(".card, .section");
+const revealElements = document.querySelectorAll(".reveal-up, .card, .glass-panel");
 
-const observer = new IntersectionObserver(
+const revealObserver = new IntersectionObserver(
   entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add("show");
-        observer.unobserve(entry.target);
+        revealObserver.unobserve(entry.target);
       }
     });
   },
-  { threshold: 0.15 }
+  { threshold: 0.14 }
 );
 
-revealEls.forEach(el => observer.observe(el));
+revealElements.forEach(element => revealObserver.observe(element));
 
-// Work page filters
-const filterBtns = document.querySelectorAll(".filter-btn");
-const cards = document.querySelectorAll(".card");
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
 
-filterBtns.forEach(btn => {
-  btn.addEventListener("click", () => {
-    filterBtns.forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
+const tiltElements = document.querySelectorAll("[data-tilt]");
 
-    const filter = btn.dataset.filter;
+if (!prefersReducedMotion && !coarsePointer) {
+  tiltElements.forEach(element => {
+    element.addEventListener("mousemove", event => {
+      const bounds = element.getBoundingClientRect();
+      const x = (event.clientX - bounds.left) / bounds.width;
+      const y = (event.clientY - bounds.top) / bounds.height;
+      const rotateY = (x - 0.5) * 14;
+      const rotateX = (0.5 - y) * 14;
 
-    cards.forEach(card => {
+      element.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+    });
+
+    element.addEventListener("mouseleave", () => {
+      element.style.transform = "";
+    });
+  });
+} else {
+  tiltElements.forEach(element => element.classList.add("is-static"));
+}
+
+const filterButtons = document.querySelectorAll(".filter-btn");
+const filterCards = document.querySelectorAll(".portfolio-card");
+
+filterButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    filterButtons.forEach(item => item.classList.remove("active"));
+    button.classList.add("active");
+
+    const filter = button.dataset.filter;
+
+    filterCards.forEach(card => {
       const categories = card.dataset.category.split(",");
+      const shouldShow = filter === "all" || categories.includes(filter);
 
-      if (filter === "all" || categories.includes(filter)) {
-        card.style.display = "block";
-        setTimeout(() => card.classList.add("show"), 50);
+      if (shouldShow) {
+        card.style.display = "";
+        requestAnimationFrame(() => {
+          card.classList.add("show");
+        });
       } else {
         card.classList.remove("show");
-        setTimeout(() => card.style.display = "none", 300);
+        setTimeout(() => {
+          card.style.display = "none";
+        }, 220);
       }
     });
   });
 });
 
-
-// Mobile tap = hover fallback
-if (window.matchMedia("(hover: none)").matches) {
-  document.querySelectorAll(".card").forEach(card => {
+if (coarsePointer) {
+  document.querySelectorAll(".portfolio-card").forEach(card => {
     card.addEventListener("click", () => {
       card.classList.toggle("active");
     });
