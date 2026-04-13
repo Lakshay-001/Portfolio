@@ -125,6 +125,16 @@ textarea {
   gap: 1rem;
 }
 
+.nav-left {
+  min-width: 0;
+}
+
+.nav-right {
+  min-width: 0;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
 .logo,
 h1,
 h2,
@@ -525,6 +535,14 @@ p {
   max-width: 46rem;
 }
 
+.about-panel,
+.video-panel,
+.contact-card,
+.stack-card,
+.portfolio-card {
+  min-width: 0;
+}
+
 .video-panel,
 .about-panel,
 .stack-card,
@@ -794,14 +812,18 @@ footer {
     grid-template-columns: 1fr;
   }
 
+  .nav {
+    padding-inline: 1rem;
+  }
+
   .hero-home {
     min-height: auto;
-    padding-top: 1rem;
+    padding-top: 0.5rem;
+    gap: 1.5rem;
   }
 
   .orbital-scene {
-    min-height: 23rem;
-    order: -1;
+    min-height: 24rem;
   }
 
   .scene-main {
@@ -827,14 +849,30 @@ footer {
 
 @media (max-width: 720px) {
   .nav {
-    align-items: flex-start;
-    gap: 0.85rem;
-    padding: 1rem 1rem 0.9rem;
+    align-items: stretch;
+    gap: 0.7rem;
+    padding: 0.9rem 1rem 0.85rem;
+  }
+
+  .nav-left {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 0.75rem;
   }
 
   .nav-right {
-    flex-wrap: wrap;
-    gap: 0.75rem;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 0.6rem;
+    padding-top: 0.1rem;
+  }
+
+  .nav-right a {
+    font-size: 0.92rem;
+  }
+
+  .nav-btn {
+    padding: 0.68rem 0.95rem;
   }
 
   main {
@@ -842,7 +880,7 @@ footer {
   }
 
   .section-shell {
-    padding: 3rem 0;
+    padding: 2.5rem 0;
   }
 
   .hero-copy {
@@ -856,50 +894,141 @@ footer {
   }
 
   .scene-main {
-    top: 10%;
+    top: 4.2rem;
     left: 0.75rem;
     width: calc(100% - 1.5rem);
-    padding: 1.1rem;
+    padding: 1rem;
   }
 
   .scene-side {
-    right: 0.75rem;
-    bottom: 3.25rem;
-    min-width: 8.5rem;
-    gap: 0.55rem;
+    display: none;
   }
 
-  .scene-side span {
-    padding: 0.55rem 0.7rem;
-    font-size: 0.84rem;
+  .scene-main::after {
+    top: 0.85rem;
+    right: 0.9rem;
+    font-size: 0.7rem;
+  }
+
+  .scene-main h2 {
+    font-size: 1.45rem;
+    margin: 0.65rem 0 0.55rem;
+  }
+
+  .scene-main p {
+    font-size: 0.9rem;
+    max-width: 17rem;
   }
 
   .chip-top {
     left: 0.75rem;
-    bottom: 5.6rem;
+    bottom: 5.8rem;
+    padding: 0.52rem 0.72rem;
+    font-size: 0.74rem;
   }
 
   .filter-bar {
-    gap: 0.6rem;
+    gap: 0.55rem;
   }
 
   .filter-btn {
-    padding: 0.75rem 0.95rem;
-    font-size: 0.92rem;
+    padding: 0.68rem 0.88rem;
+    font-size: 0.86rem;
   }
 
   .card-media iframe {
-    aspect-ratio: 9 / 14;
+    aspect-ratio: 4 / 5;
   }
 
   .portfolio-card {
     max-width: none;
+    width: 100%;
+  }
+
+  .timeline-panel {
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    padding: 0.72rem 0.78rem;
+  }
+
+  .timeline-header {
+    gap: 0.6rem;
+    font-size: 0.68rem;
   }
 }
 
 @media (max-width: 560px) {
+  .nav {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+    padding: 0.85rem;
+    border: 1px solid rgba(148, 163, 184, 0.12);
+    border-radius: 0 0 24px 24px;
+    background:
+      linear-gradient(180deg, rgba(7, 17, 31, 0.92), rgba(7, 17, 31, 0.76)),
+      linear-gradient(90deg, rgba(110, 231, 249, 0.06), rgba(245, 158, 11, 0.04));
+    box-shadow: 0 18px 40px rgba(2, 8, 23, 0.25);
+  }
+
   .role {
     display: none;
+  }
+
+  .nav-left {
+    width: 100%;
+    justify-content: center;
+    gap: 0;
+    padding-bottom: 0.15rem;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  }
+
+  .logo {
+    font-size: 1.38rem;
+    letter-spacing: 0.07em;
+    text-align: center;
+  }
+
+  .nav-right {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.55rem;
+    padding: 0.18rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+  }
+
+  .nav-right a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.6rem;
+    font-size: 0.84rem;
+    border-radius: 999px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-muted);
+    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  }
+
+  .nav-right a:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-main);
+    transform: none;
+  }
+
+  .nav-right a.active {
+    color: #04111d;
+    background: linear-gradient(135deg, var(--accent), #d9f5ff);
+    border-color: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 10px 24px rgba(110, 231, 249, 0.18);
+  }
+
+  .nav-btn {
+    padding: 0;
   }
 
   h1 {
@@ -920,15 +1049,17 @@ footer {
   }
 
   .orbital-scene {
-    min-height: 19rem;
+    min-height: 18rem;
+  }
+
+  .scene-main {
+    top: 3.35rem;
+    padding: 0.92rem;
   }
 
   .scene-main p {
-    font-size: 0.92rem;
-  }
-
-  .scene-side {
-    display: none;
+    font-size: 0.84rem;
+    max-width: 14rem;
   }
 
   .software-stack {
@@ -945,20 +1076,73 @@ footer {
   }
 
   .timeline-panel {
-    padding: 0.75rem 0.8rem;
-    bottom: 1rem;
+    padding: 0.68rem 0.72rem;
+    bottom: 0.72rem;
   }
 
   .timeline-header {
-    font-size: 0.68rem;
+    font-size: 0.62rem;
   }
 
   .clip {
-    height: 1rem;
+    height: 0.85rem;
+  }
+
+  .chip-top {
+    bottom: 4.9rem;
+  }
+
+  .timeline-track {
+    gap: 0.38rem;
+  }
+
+  .contact-layout {
+    gap: 1rem;
   }
 
   .contact-card {
     min-height: auto;
     padding: 1.1rem;
+  }
+}
+
+@media (max-width: 420px) {
+  main {
+    width: min(100% - 0.85rem, 1200px);
+  }
+
+  .nav {
+    padding: 0.75rem;
+    border-radius: 0 0 20px 20px;
+  }
+
+  .nav-left {
+    justify-content: center;
+    gap: 0;
+  }
+
+  .nav-right a {
+    font-size: 0.8rem;
+    min-height: 2.45rem;
+  }
+
+  .logo {
+    font-size: 1.26rem;
+  }
+
+  .scene-main h2 {
+    font-size: 1.28rem;
+  }
+
+  .scene-main {
+    top: 3.15rem;
+  }
+
+  .chip-top {
+    display: none;
+  }
+
+  .timeline-header span:last-child {
+    display: none;
   }
 }
