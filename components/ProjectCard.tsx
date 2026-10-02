@@ -1,4 +1,7 @@
+"use client";
+
 import type { Project } from "@/data/portfolio";
+import { useState } from "react";
 
 type ProjectCardProps = {
   project: Project;
@@ -8,6 +11,8 @@ type ProjectCardProps = {
 };
 
 export function ProjectCard({ project, index = 0, featured = false, reveal = true }: ProjectCardProps) {
+  const [previewRequested, setPreviewRequested] = useState(false);
+
   return (
     <article
       className={`project-card accent-${project.accent} ${featured ? "featured" : ""}`}
@@ -15,7 +20,19 @@ export function ProjectCard({ project, index = 0, featured = false, reveal = tru
       style={{ "--lift": `${Math.min(index, 6) * 12}px` } as React.CSSProperties}
     >
       <div className="project-media">
-        <iframe src={project.src} title={project.title} allow="autoplay" allowFullScreen loading="lazy" />
+        {previewRequested ? (
+          <iframe src={project.src} title={project.title} allow="autoplay" allowFullScreen />
+        ) : (
+          <button
+            className="project-preview-button"
+            onClick={() => setPreviewRequested(true)}
+            type="button"
+            aria-label={`Load video preview: ${project.title}`}
+          >
+            <span className="preview-play" aria-hidden="true">▶</span>
+            <span>Load video preview</span>
+          </button>
+        )}
       </div>
       <div className="project-copy">
         <div className="project-meta">

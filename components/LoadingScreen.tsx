@@ -6,8 +6,8 @@ export function LoadingScreen() {
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setDone(true), 450);
-    return () => window.clearTimeout(timer);
+    const frame = window.requestAnimationFrame(() => setDone(true));
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   return (
