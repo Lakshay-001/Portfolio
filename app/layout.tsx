@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { RevealRuntime } from "@/components/Reveal";
+import { LoadingScreen } from "@/components/LoadingScreen";
 import { SiteNav } from "@/components/SiteNav";
 import "./globals.css";
 
@@ -17,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <LoadingScreen />
         <RevealRuntime />
         <div className="site-shell">
           <SiteNav />

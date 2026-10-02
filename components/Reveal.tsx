@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export function RevealRuntime() {
   useEffect(() => {
-    document.body.classList.add("is-loaded");
+    document.documentElement.classList.add("has-js");
 
     const targets = document.querySelectorAll<HTMLElement>("[data-reveal]");
     const observer = new IntersectionObserver(
@@ -20,7 +20,10 @@ export function RevealRuntime() {
     );
 
     targets.forEach((target) => observer.observe(target));
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      document.documentElement.classList.remove("has-js");
+    };
   }, []);
 
   return null;

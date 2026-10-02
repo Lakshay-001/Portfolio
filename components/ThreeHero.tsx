@@ -25,12 +25,14 @@ export function ThreeHero() {
       return;
     }
 
+    let teardown: (() => void) | undefined;
+    const setup = () => {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100);
     camera.position.set(0, 1.2, 10.2);
 
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     mount.appendChild(renderer.domElement);
 
     const root = new THREE.Group();
@@ -208,13 +210,31 @@ export function ThreeHero() {
 
     animate();
 
-    return () => {
+    teardown = () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
       mount.removeEventListener("pointermove", onPointerMove);
       renderer.dispose();
       particlesGeometry.dispose();
       mount.removeChild(renderer.domElement);
+    };
+    };
+
+    const idleWindow = window as Window & {
+      requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
+      cancelIdleCallback?: (handle: number) => void;
+    };
+    const idleHandle = idleWindow.requestIdleCallback
+      ? idleWindow.requestIdleCallback(setup, { timeout: 1200 })
+      : window.setTimeout(setup, 180);
+
+    return () => {
+      if (idleWindow.cancelIdleCallback && idleWindow.requestIdleCallback) {
+        idleWindow.cancelIdleCallback(idleHandle);
+      } else {
+        window.clearTimeout(idleHandle);
+      }
+      teardown?.();
     };
   }, []);
 
