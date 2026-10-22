@@ -1,11 +1,26 @@
 import Link from "next/link";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ThreeHero } from "@/components/ThreeHero";
+import Topography from "@/components/Topography";
 import { editSteps, projects, stats, strengths } from "@/data/portfolio";
 
 export default function Home() {
   return (
-    <>
+    <div className="home-page">
+      <div className="home-topography" aria-hidden="true">
+        <Topography
+          color="#67e8f9"
+          lineCount={22}
+          lineWidth={1.1}
+          speed={0.14}
+          glow={0.45}
+          depthOfField={0.3}
+          fog={0.32}
+          opacity={0.72}
+          hoverEffect="lift"
+          clickEffect="pulse"
+        />
+      </div>
       <section className="hero-grid">
         <div className="hero-art art-slate" aria-hidden="true">
           <span />
@@ -174,6 +189,6 @@ export default function Home() {
         </div>
         <Link className="button primary" href="/contact">Book the edit</Link>
       </section>
-    </>
+    </div>
   );
 }
